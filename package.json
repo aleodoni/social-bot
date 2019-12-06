@@ -1,0 +1,13 @@
+{
+  "name": "social-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^6.7.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "puppeteer": "^2.0.0"
+  }
+}
