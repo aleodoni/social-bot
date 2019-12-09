@@ -13,13 +13,14 @@ module.exports = {
 
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
+    use: true
   },
   parserOptions: {
     ecmaVersion: 2018
   },
   rules: {
-      "prettier/prettier": "error",
+      'prettier/prettier': 'error',
 
   }
 }
