@@ -3,14 +3,10 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Post extends Model {
+class PostImage extends Model {
   static boot() {
     super.boot()
   }
-
-  image() {
-    return this.hasOne('App/Models/PostImage')
-  }
 }
 
-module.exports = Post
+module.exports = PostImage
