@@ -7,8 +7,9 @@ const UpdateService = use('App/Services/Post/UpdateService')
 const DeleteService = use('App/Services/Post/DeleteService')
 
 class PostController {
-  async index({ response }) {
-    const posts = await ListService.handle()
+  async index({ params, response }) {
+    const { date } = params
+    const posts = await ListService.handle(date)
 
     return response.ok(posts)
   }
