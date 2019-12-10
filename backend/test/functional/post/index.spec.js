@@ -1,6 +1,6 @@
 'use strict'
 
-const { test, trait, beforeEach } = use('Test/Suite')('Services/Post/List')
+const { test, trait, beforeEach } = use('Test/Suite')('Functional/Post/Index')
 const Database = use('Database')
 const Factory = use('Factory')
 
@@ -25,6 +25,5 @@ test('call post service successfully', async ({ assert, client }) => {
     .end()
 
   assert.equal(response.status, 200)
-  console.log(response.body)
   assert.typeOf(response.body, 'array')
 })

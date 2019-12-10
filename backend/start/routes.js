@@ -18,4 +18,12 @@ const Route = use('Route')
 
 Route.group(() => {
   Route.get('posts', 'PostController.index').middleware('auth')
+  Route.get('posts/:id', 'PostController.show').middleware('auth')
+  Route.post('posts', 'PostController.store')
+    .middleware('auth')
+    .validator('Post')
+  Route.put('posts/:id', 'PostController.update')
+    .middleware('auth')
+    .validator('Post')
+  Route.delete('posts/:id', 'PostController.delete').middleware('auth')
 }).prefix('api')
