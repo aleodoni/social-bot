@@ -10,6 +10,10 @@ class ExceptionHandler extends BaseExceptionHandler {
       return response.status(error.status).send({ error: 'Invalid Token' })
     }
 
+    if (error.name === 'PasswordMisMatchException') {
+      return response.status(401).send({ error: 'Password Mismatch' })
+    }
+
     if (error.name === 'NotFoundException') {
       return response.status(error.status).send({ error: 'Not Found' })
     }
