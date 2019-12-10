@@ -1,15 +1,19 @@
 'use strict'
 
-const RegisterService = use('App/Services/RegisterService')
+const RegisterService = use('App/Services/Register/RegisterService')
 
 class RegisterController {
   async store({ request, response }) {
-    const { username, email, password } = request.all()
+    const { username, email, password } = request.only([
+      'username',
+      'email',
+      'password'
+    ])
 
     try {
       await RegisterService.checkExists(email)
 
-      const userData = await RegisterService.register(username, email, password)
+      const userData = await RegisterService.handle(username, email, password)
 
       return response.ok({
         user: userData

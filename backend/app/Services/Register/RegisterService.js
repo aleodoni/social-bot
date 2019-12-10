@@ -20,12 +20,12 @@ class RegisterService {
     }
   }
 
-  async register(username, email, password) {
+  async handle(username, email, password) {
     const user = await User.create({ username, email, password })
 
     const userData = {
       id: user.id,
-      name: user.name,
+      username: user.username,
       email: user.email
     }
 
