@@ -23,6 +23,10 @@ class Date {
   endOfDay(date) {
     return DateFns.endOfDay(date)
   }
+
+  compareAsc(dateLeft, dateRight) {
+    return DateFns.compareAsc(dateLeft, dateRight)
+  }
 }
 
 module.exports = Date

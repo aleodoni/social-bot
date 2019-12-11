@@ -3,6 +3,7 @@
 const { test, trait, beforeEach } = use('Test/Suite')('Functional/Post/Update')
 const Database = use('Database')
 const Factory = use('Factory')
+const Post = use('App/Models/Post')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
@@ -79,7 +80,7 @@ test('try to update post text null', async ({ assert, client }) => {
   assert.equal(response.body[0].message, 'required validation failed on text')
 })
 
-test('try to update post when null', async ({ assert, client }) => {
+test('try to update post post_when null', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
 
   const response = await client
@@ -94,4 +95,28 @@ test('try to update post when null', async ({ assert, client }) => {
 
   assert.equal(response.status, 200)
   assert.equal(response.body.text, 'Post um Alterado')
+})
+
+test('try to update a posted post', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+
+  await Post.create({
+    name: 'Post Postado',
+    text: 'Post já postado',
+    post_when: new Date('2019-01-01 10:00'),
+    posted_when: new Date('2019-01-01 10:00')
+  })
+
+  const response = await client
+    .put('/api/posts/2')
+    .loginVia(user)
+    .send({
+      name: 'Post 1',
+      text: 'Post um Alterado',
+      post_when: null
+    })
+    .end()
+
+  assert.equal(response.status, 400)
+  assert.deepEqual(response.body, { error: "Can't update a posted post" })
 })
