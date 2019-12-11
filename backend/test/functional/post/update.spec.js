@@ -54,7 +54,7 @@ test('try to update post name null', async ({ assert, client }) => {
     .send({
       name: null,
       text: 'Post Um',
-      when: new Date()
+      post_when: new Date()
     })
     .end()
 
@@ -71,7 +71,7 @@ test('try to update post text null', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: null,
-      when: new Date()
+      post_when: new Date()
     })
     .end()
 
@@ -88,7 +88,7 @@ test('try to update post when null', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: 'Post um Alterado',
-      when: null
+      post_when: null
     })
     .end()
 

@@ -26,7 +26,7 @@ Route.group(() => {
 
   Route.post('register', 'RegisterController.store').validator('Register')
 
-  Route.get('posts', 'PostController.index').middleware('auth')
+  Route.get('posts/', 'PostController.index').middleware('auth')
   Route.get('posts/:id', 'PostController.show').middleware('auth')
   Route.post('posts', 'PostController.store')
     .middleware('auth')

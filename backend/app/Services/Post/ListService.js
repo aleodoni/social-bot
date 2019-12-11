@@ -6,11 +6,13 @@ const DateFns = use('DateFns')
 
 class ListService {
   async handle(date) {
-    const teste = DateFns.format(new Date())
-    console.log('--------------------------1')
-    console.log(teste)
+    const dateSearch = DateFns.parseISO(date)
     const posts = await Post.query()
-      .orderBy('when')
+      .whereBetween('post_when', [
+        DateFns.startOfDay(dateSearch),
+        DateFns.endOfDay(dateSearch)
+      ])
+      .orderBy('post_when')
       .fetch()
 
     return posts

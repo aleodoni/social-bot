@@ -22,10 +22,10 @@ Factory.blueprint('App/Models/User', faker => {
   }
 })
 
-Factory.blueprint('App/Models/Post', faker => {
+Factory.blueprint('App/Models/Post', (faker, index, data) => {
   return {
-    name: faker.sentence({ words: 2 }),
-    text: faker.sentence({ words: 5 }),
-    when: faker.timestamp()
+    name: data[index][0],
+    text: data[index][1],
+    post_when: data[index][2]
   }
 })

@@ -9,13 +9,19 @@ class Date {
   }
 
   format(date) {
-    console.log('==============================1')
-    console.log(this._dateConfig.format)
     return DateFns.format(date, this._dateConfig.format)
   }
 
   parseISO(strDate) {
     return DateFns.parseISO(strDate)
+  }
+
+  startOfDay(date) {
+    return DateFns.startOfDay(date)
+  }
+
+  endOfDay(date) {
+    return DateFns.endOfDay(date)
   }
 }
 

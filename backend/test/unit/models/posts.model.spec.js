@@ -8,7 +8,7 @@ test('create a new post', async ({ assert }) => {
   const postData = {
     name: 'Meu primeiro post',
     text: 'Esse é o meu primeiro post',
-    when: new Date()
+    post_when: new Date()
   }
 
   const post = await Post.create(postData)
@@ -20,7 +20,7 @@ test('post with name null', async ({ assert }) => {
   const postData = {
     name: null,
     text: 'Esse é o meu primeiro post',
-    when: new Date()
+    post_when: new Date()
   }
 
   assert.plan(1)
@@ -36,7 +36,7 @@ test('post with text null', async ({ assert }) => {
   const postData = {
     name: 'Meu primeiro post',
     text: null,
-    when: new Date()
+    post_when: new Date()
   }
 
   assert.plan(1)
@@ -52,7 +52,7 @@ test('post with when null', async ({ assert }) => {
   const postData = {
     name: 'Meu primeiro post',
     text: 'Esse é o meu primeiro post',
-    when: null
+    post_when: null
   }
 
   const post = await Post.create(postData)

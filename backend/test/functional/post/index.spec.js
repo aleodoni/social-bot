@@ -10,20 +10,21 @@ trait('Auth/Client')
 beforeEach(async () => {
   await Database.truncate('posts')
   await Factory.model('App/Models/Post').createMany(3, [
-    ['Post 1', 'Post um', new Date()],
-    ['Post 2', 'Post dois', new Date()],
-    ['Post 3', 'Post três', new Date()]
+    ['Post 1', 'Post um', new Date('2020-12-11 00:00')],
+    ['Post 2', 'Post dois', new Date('2019-12-11 00:00')],
+    ['Post 3', 'Post três', new Date('2019-12-11 00:00')]
   ])
 })
 
-test('call post service successfully', async ({ assert, client }) => {
+test('call post service successfullyddd', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
 
   const response = await client
-    .get('/api/posts')
+    .get('/api/posts?date=2019-12-11')
     .loginVia(user)
     .end()
 
   assert.equal(response.status, 200)
   assert.typeOf(response.body, 'array')
+  assert.lengthOf(response.body, 2)
 })

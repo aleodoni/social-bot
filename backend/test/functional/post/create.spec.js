@@ -20,7 +20,7 @@ test('create post successfully', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: 'Post Um',
-      when: new Date()
+      post_when: new Date()
     })
     .end()
 
@@ -37,7 +37,7 @@ test('try to insert post name null', async ({ assert, client }) => {
     .send({
       name: null,
       text: 'Post Um',
-      when: new Date()
+      post_when: new Date()
     })
     .end()
 
@@ -54,7 +54,7 @@ test('try to insert post text null', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: null,
-      when: new Date()
+      post_when: new Date()
     })
     .end()
 
@@ -71,7 +71,7 @@ test('try to insert post when null', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: 'Post um',
-      when: null
+      post_when: null
     })
     .end()
 

@@ -11,6 +11,14 @@ class Post extends Model {
   image() {
     return this.hasOne('App/Models/PostImage')
   }
+
+  static get createdAtColumn() {
+    return null
+  }
+
+  static get updatedAtColumn() {
+    return null
+  }
 }
 
 module.exports = Post

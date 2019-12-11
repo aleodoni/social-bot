@@ -8,8 +8,8 @@ class PostSchema extends Schema {
       table.increments()
       table.string('name', 80).notNullable()
       table.text('text').notNullable()
-      table.datetime('when')
-      table.timestamps()
+      table.datetime('post_when')
+      table.datetime('posted_when')
     })
   }
 
