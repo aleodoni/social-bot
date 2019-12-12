@@ -22,9 +22,19 @@ class PostController {
   }
 
   async store({ request, response }) {
-    const data = request.only(['name', 'text', 'when'])
+    const data = request.only(['name', 'text', 'postWhen'])
 
-    const post = await StoreService.handle(data)
+    const postImage = request.file('postImage', {
+      types: ['image'],
+      size: '4mb'
+    })
+
+    const allData = {
+      ...data,
+      postImage
+    }
+
+    const post = await StoreService.handle(allData)
 
     return response.ok(post)
   }

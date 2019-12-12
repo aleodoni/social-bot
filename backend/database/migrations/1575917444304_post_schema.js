@@ -8,8 +8,11 @@ class PostSchema extends Schema {
       table.increments()
       table.string('name', 80).notNullable()
       table.text('text').notNullable()
-      table.datetime('post_when')
+      table.datetime('post_when').notNullable()
       table.datetime('posted_when')
+      table.boolean('instagram').defaultTo(true)
+      table.boolean('facebook').defaultTo(true)
+      table.boolean('twitter').defaultTo(true)
     })
   }
 

@@ -3,6 +3,7 @@
 const { test, trait, beforeEach } = use('Test/Suite')('Functional/Post/Create')
 const Database = use('Database')
 const Factory = use('Factory')
+const Helpers = use('Helpers')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
@@ -13,15 +14,16 @@ beforeEach(async () => {
 
 test('create post successfully', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
+  const img = Helpers.appRoot('test/imgtest.png')
 
   const response = await client
     .post('/api/posts')
     .loginVia(user)
-    .send({
-      name: 'Post 1',
-      text: 'Post Um',
-      post_when: new Date()
-    })
+    .field({ name: 'Post 1' })
+    .field({ text: 'Post Um' })
+    .field({ postWhen: '2019-12-12 12:00' })
+    // .field({ instagram: true })
+    .attach('postImage', img)
     .end()
 
   assert.equal(response.status, 200)
@@ -37,7 +39,7 @@ test('try to insert post name null', async ({ assert, client }) => {
     .send({
       name: null,
       text: 'Post Um',
-      post_when: new Date()
+      postWhen: new Date()
     })
     .end()
 
@@ -54,7 +56,7 @@ test('try to insert post text null', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: null,
-      post_when: new Date()
+      postWhen: new Date()
     })
     .end()
 
@@ -62,19 +64,19 @@ test('try to insert post text null', async ({ assert, client }) => {
   assert.equal(response.body[0].message, 'required validation failed on text')
 })
 
-test('try to insert post when null', async ({ assert, client }) => {
+test('try to insert post postWhen null', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
 
   const response = await client
     .post('/api/posts')
     .loginVia(user)
-    .send({
-      name: 'Post 1',
-      text: 'Post um',
-      post_when: null
-    })
+    .field({ name: 'Post 1' })
+    .field({ text: 'Post Um' })
     .end()
 
-  assert.equal(response.status, 200)
-  assert.equal(response.body.name, 'Post 1')
+  assert.equal(response.status, 400)
+  assert.equal(
+    response.body[0].message,
+    'required validation failed on postWhen'
+  )
 })

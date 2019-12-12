@@ -4,7 +4,8 @@ class Post {
   get rules() {
     return {
       name: 'required',
-      text: 'required'
+      text: 'required',
+      postWhen: 'required'
     }
   }
 }

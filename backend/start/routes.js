@@ -20,6 +20,8 @@ Route.group(() => {
   Route.post('sessions', 'SessionController.store').validator('SessionStore')
   Route.get('sessions', 'SessionController.show').middleware('auth')
 
+  Route.post('files', 'FileController.store').middleware('auth')
+
   Route.put('users', 'UserController.update')
     .middleware('auth')
     .validator('UserUpdate')

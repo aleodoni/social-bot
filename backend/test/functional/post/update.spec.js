@@ -23,7 +23,8 @@ test('update post successfully', async ({ assert, client }) => {
     .loginVia(user)
     .send({
       name: 'Post 1',
-      text: 'Post Um Alterado'
+      text: 'Post Um Alterado',
+      postWhen: new Date()
     })
     .end()
 
@@ -39,7 +40,8 @@ test('try to update post inexistent', async ({ assert, client }) => {
     .loginVia(user)
     .send({
       name: 'Post 1',
-      text: 'Post Um Alterado'
+      text: 'Post Um Alterado',
+      postWhen: new Date()
     })
     .end()
 
@@ -80,7 +82,7 @@ test('try to update post text null', async ({ assert, client }) => {
   assert.equal(response.body[0].message, 'required validation failed on text')
 })
 
-test('try to update post post_when null', async ({ assert, client }) => {
+test('try to update post postWhen null', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
 
   const response = await client
@@ -89,12 +91,15 @@ test('try to update post post_when null', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: 'Post um Alterado',
-      post_when: null
+      postWhen: null
     })
     .end()
 
-  assert.equal(response.status, 200)
-  assert.equal(response.body.text, 'Post um Alterado')
+  assert.equal(response.status, 400)
+  assert.equal(
+    response.body[0].message,
+    'required validation failed on postWhen'
+  )
 })
 
 test('try to update a posted post', async ({ assert, client }) => {
@@ -113,7 +118,7 @@ test('try to update a posted post', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: 'Post um Alterado',
-      post_when: null
+      postWhen: new Date()
     })
     .end()
 

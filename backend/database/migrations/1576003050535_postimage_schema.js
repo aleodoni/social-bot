@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class PostimageSchema extends Schema {
   up() {
-    this.create('postimages', table => {
+    this.create('post_images', table => {
       table.increments()
 
       table
@@ -24,7 +24,7 @@ class PostimageSchema extends Schema {
   }
 
   down() {
-    this.drop('postimages')
+    this.drop('post_images')
   }
 }
 

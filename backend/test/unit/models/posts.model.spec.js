@@ -55,7 +55,11 @@ test('post with when null', async ({ assert }) => {
     post_when: null
   }
 
-  const post = await Post.create(postData)
+  assert.plan(1)
 
-  assert.equal(post.when, postData.when)
+  try {
+    await Post.create(postData)
+  } catch (err) {
+    assert.match(err.message, /NOT NULL constraint failed: posts.post_when/)
+  }
 })
