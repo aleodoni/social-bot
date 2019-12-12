@@ -22,12 +22,17 @@ test('create post successfully', async ({ assert, client }) => {
     .field({ name: 'Post 1' })
     .field({ text: 'Post Um' })
     .field({ postWhen: '2019-12-12 12:00' })
-    // .field({ instagram: true })
+    .field({ instagram: true })
+    .field({ facebook: true })
+    .field({ twitter: false })
     .attach('postImage', img)
     .end()
 
   assert.equal(response.status, 200)
   assert.equal(response.body.name, 'Post 1')
+  assert.equal(response.body.instagram, 'true')
+  assert.equal(response.body.facebook, 'true')
+  assert.equal(response.body.twitter, 'false')
 })
 
 test('try to insert post name null', async ({ assert, client }) => {

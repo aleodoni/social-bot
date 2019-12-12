@@ -22,7 +22,14 @@ class PostController {
   }
 
   async store({ request, response }) {
-    const data = request.only(['name', 'text', 'postWhen'])
+    const data = request.only([
+      'name',
+      'text',
+      'postWhen',
+      'instagram',
+      'facebook',
+      'twitter'
+    ])
 
     const postImage = request.file('postImage', {
       types: ['image'],
@@ -41,7 +48,14 @@ class PostController {
 
   async update({ params, request, response }) {
     const { id } = params
-    const data = request.only(['name', 'text', 'when'])
+    const data = request.only([
+      'name',
+      'text',
+      'postWhen',
+      'instagram',
+      'facebook',
+      'twitter'
+    ])
 
     const post = await UpdateService.handle(id, data)
 

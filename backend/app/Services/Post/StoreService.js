@@ -12,6 +12,8 @@ class StoreService {
     const { postImage } = data
     const { name, text, postWhen, instagram, facebook, twitter } = data
 
+    console.log(data)
+
     const trx = await Database.beginTransaction()
 
     try {
@@ -45,8 +47,6 @@ class StoreService {
       return post
     } catch (err) {
       await trx.rollback()
-      console.log('---------------------------------------2')
-      console.log(err)
       throw new GeneralException(400, "Can't save the post")
     }
   }
