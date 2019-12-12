@@ -27,6 +27,7 @@
     "@adonisjs/redis": "^2.0.7",
     "@adonisjs/validator": "^5.0.6",
     "@adonisjs/vow": "^1.0.17",
+    "adonis-scheduler": "^3.0.2",
     "date-fns": "^2.8.1",
     "instagram-web-api": "^2.1.0",
     "pg": "^7.14.0"
