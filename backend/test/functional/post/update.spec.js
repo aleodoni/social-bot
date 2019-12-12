@@ -11,7 +11,7 @@ trait('Auth/Client')
 beforeEach(async () => {
   await Database.truncate('posts')
   await Factory.model('App/Models/Post').createMany(1, [
-    ['Post 1', 'Post um', new Date()]
+    ['Post 1', 'Post um', new Date(), true, true, false]
   ])
 })
 
@@ -24,12 +24,16 @@ test('update post successfully', async ({ assert, client }) => {
     .send({
       name: 'Post 1',
       text: 'Post Um Alterado',
-      postWhen: new Date()
+      postWhen: new Date(),
+      instagram: true,
+      facebook: true,
+      twitter: true
     })
     .end()
 
   assert.equal(response.status, 200)
   assert.equal(response.body.text, 'Post Um Alterado')
+  assert.equal(response.body.twitter, true)
 })
 
 test('try to update post inexistent', async ({ assert, client }) => {

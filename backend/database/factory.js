@@ -26,6 +26,9 @@ Factory.blueprint('App/Models/Post', (faker, index, data) => {
   return {
     name: data[index][0],
     text: data[index][1],
-    post_when: data[index][2]
+    post_when: data[index][2],
+    instagram: data[index][3],
+    facebook: data[index][4],
+    twitter: data[index][5]
   }
 })

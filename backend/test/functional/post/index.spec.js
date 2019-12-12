@@ -10,9 +10,9 @@ trait('Auth/Client')
 beforeEach(async () => {
   await Database.truncate('posts')
   await Factory.model('App/Models/Post').createMany(3, [
-    ['Post 1', 'Post um', new Date('2020-12-11 00:00')],
-    ['Post 2', 'Post dois', new Date('2019-12-11 00:00')],
-    ['Post 3', 'Post três', new Date('2019-12-11 00:00')]
+    ['Post 1', 'Post um', new Date('2020-12-11 00:00'), true, true, true],
+    ['Post 2', 'Post dois', new Date('2019-12-11 00:00'), false, false, true],
+    ['Post 3', 'Post três', new Date('2019-12-11 00:00'), true, true, false]
   ])
 })
 

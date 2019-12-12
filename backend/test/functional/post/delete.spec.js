@@ -11,7 +11,7 @@ trait('Auth/Client')
 beforeEach(async () => {
   await Database.truncate('posts')
   await Factory.model('App/Models/Post').createMany(1, [
-    ['Post 1', 'Post um', new Date()]
+    ['Post 1', 'Post um', new Date(), true, true, true]
   ])
 })
 
@@ -44,7 +44,10 @@ test('try to delete a posted post', async ({ assert, client }) => {
     name: 'Post Postado',
     text: 'Post já postado',
     post_when: new Date('2019-01-01 10:00'),
-    posted_when: new Date('2019-01-01 10:00')
+    posted_when: new Date('2019-01-01 10:00'),
+    instagram: true,
+    facebook: true,
+    twitter: false
   })
 
   const response = await client
