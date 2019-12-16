@@ -1,7 +1,9 @@
 'use strict'
 
 const DateFns = require('date-fns')
+
 const Config = use('Config')
+const GeneralException = use('App/Exceptions/GeneralException')
 
 class Date {
   constructor() {
@@ -13,7 +15,12 @@ class Date {
   }
 
   parseISO(strDate) {
-    return DateFns.parseISO(strDate)
+    const parsedDate = DateFns.parseISO(strDate)
+
+    if (parsedDate.toJSON() === null) {
+      throw new GeneralException(400, 'Invalid date')
+    }
+    return parsedDate
   }
 
   startOfDay(date) {

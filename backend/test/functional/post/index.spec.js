@@ -16,7 +16,7 @@ beforeEach(async () => {
   ])
 })
 
-test('call post service successfullyddd', async ({ assert, client }) => {
+test('load posts successfully', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
 
   const response = await client

@@ -28,6 +28,16 @@ Route.group(() => {
 
   Route.post('register', 'RegisterController.store').validator('Register')
 
+  Route.get('roles/', 'RoleController.index').middleware('auth')
+  Route.get('roles/:id', 'RoleController.show').middleware('auth')
+  Route.post('roles', 'RoleController.store')
+    .middleware('auth')
+    .validator('Role')
+  Route.put('roles/:id', 'RoleController.update')
+    .middleware('auth')
+    .validator('Role')
+  Route.delete('roles/:id', 'RoleController.delete').middleware('auth')
+
   Route.get('posts/', 'PostController.index').middleware('auth')
   Route.get('posts/:id', 'PostController.show').middleware('auth')
   Route.post('posts', 'PostController.store')

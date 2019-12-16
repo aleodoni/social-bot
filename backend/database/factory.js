@@ -32,3 +32,19 @@ Factory.blueprint('App/Models/Post', (faker, index, data) => {
     twitter: data[index][5]
   }
 })
+
+Factory.blueprint('App/Models/Role', (faker, index, data) => {
+  return {
+    name: data[index][0],
+    description: data[index][1],
+    slug: data[index][2]
+  }
+})
+
+Factory.blueprint('App/Models/Permission', (faker, index, data) => {
+  return {
+    name: data[index][0],
+    description: data[index][1],
+    slug: data[index][2]
+  }
+})
