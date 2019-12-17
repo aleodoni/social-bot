@@ -38,6 +38,18 @@ Route.group(() => {
     .validator('Role')
   Route.delete('roles/:id', 'RoleController.delete').middleware('auth')
 
+  Route.get('permissions/', 'PermissionController.index').middleware('auth')
+  Route.get('permissions/:id', 'PermissionController.show').middleware('auth')
+  Route.post('permissions', 'PermissionController.store')
+    .middleware('auth')
+    .validator('Permission')
+  Route.put('permissions/:id', 'PermissionController.update')
+    .middleware('auth')
+    .validator('Permission')
+  Route.delete('permissions/:id', 'PermissionController.delete').middleware(
+    'auth'
+  )
+
   Route.get('posts/', 'PostController.index').middleware('auth')
   Route.get('posts/:id', 'PostController.show').middleware('auth')
   Route.post('posts', 'PostController.store')

@@ -12,8 +12,6 @@ class StoreService {
     const { postImage } = data
     const { name, text, postWhen, instagram, facebook, twitter } = data
 
-    console.log(data)
-
     const trx = await Database.beginTransaction()
 
     try {

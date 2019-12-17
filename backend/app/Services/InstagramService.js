@@ -4,7 +4,6 @@ const puppeteer = require('puppeteer')
 const devices = require('puppeteer/DeviceDescriptors')
 const iPhone = devices['iPhone 6']
 
-const Helpers = use('Helpers')
 const Post = use('App/Models/Post')
 
 class InstagramService {
@@ -32,42 +31,75 @@ class InstagramService {
 
     await loginButton[0].click()
 
-    await this._page.waitFor(2500)
+    await this._page.waitFor(3500)
 
-    await this._page.type('input[name="username"]', 'aleodoni', { delay: 50 })
-    await this._page.type('input[name="password"]', 'cupim2017', { delay: 50 })
+    await this._page.type(
+      'input[name="username"]',
+      this._instagramConfig.username,
+      {
+        delay: 100
+      }
+    )
+    await this._page.type(
+      'input[name="password"]',
+      this._instagramConfig.password,
+      {
+        delay: 100
+      }
+    )
+
     await this._page.keyboard.press('Enter')
 
     await this._page.waitForNavigation()
 
-    const agoraNaoButton = await this._page.$x(
+    await this._page.waitFor(3500)
+
+    let agoraNaoButton = await this._page.$x(
       '//button[contains(text(), "Agora não")]'
     )
     await agoraNaoButton[0].click()
 
-    await this._page.waitFor(4500)
+    await this._page.waitForNavigation()
+    await this._page.waitFor(3500)
 
     const cancelarButton = await this._page.$x(
       '//button[contains(text(), "Cancelar")]'
     )
-
     await cancelarButton[0].click()
 
-    // await this._page.waitForNavigation()
+    await this._page.evaluate(() => {
+      window.scrollBy(0, document.body.scrollHeight)
+    })
 
-    const spanPost = await this._page.$x(
-      '//span[@aria-label="Nova publicação"]'
+    await this._page.waitFor(3500)
+
+    agoraNaoButton = await this._page.$x(
+      '//button[contains(text(), "Agora não")]'
     )
+    await agoraNaoButton[0].click()
+  }
 
-    await spanPost[0].click()
+  async post(image, text) {
+    const futureFileChooser = this._page.waitForFileChooser()
+    await this._page.click('span[aria-label="Nova publicação"]')
+    const fileChooser = await futureFileChooser
+    await fileChooser.accept([image])
 
-    const input = await this._page.$('input[type="file"]')
+    await this._page.waitFor(2500)
 
-    await input.uploadFile(
-      Helpers.tmpPath(
-        `uploads/1576263442682-a-imagem-de-russell-b-que-maravilhou-o-mundo.jpg`
-      )
+    const avancarButton = await this._page.$x(
+      '//button[contains(text(), "Avançar")]'
     )
+    await avancarButton[0].click()
+
+    const selector = 'textarea[aria-label="Escreva uma legenda..."]'
+    await this._page.waitForSelector(selector)
+    await this._page.type(selector, text)
+
+    const compartilharButton = await this._page.$x(
+      '//button[contains(text(), "Compartilhar")]'
+    )
+    await compartilharButton[0].click()
   }
 
   async postScheduled() {
@@ -85,18 +117,12 @@ class InstagramService {
 
     const arrayPosts = postsToPost.toJSON()
 
-    await this._client.uploadPhoto({
-      photo:
-        'http://localhost:3333/api/images/1576263442682-a-imagem-de-russell-b-que-maravilhou-o-mundo.jpg',
-      caption: 'Teste'
+    arrayPosts.map(async post => {
+      await this.post(
+        `http://localhost:3333/api/images/${post.image.path}`,
+        post.text
+      )
     })
-
-    // arrayPosts.map(async post => {
-    //   await this._client.uploadPhoto({
-    //     photo: `http://localhost:3333/api/images/${post.image.path}`,
-    //     caption: post.text
-    //   })
-    // })
   }
 }
 
