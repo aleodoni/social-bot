@@ -9,10 +9,21 @@ class PostSchema extends Schema {
       table.string('name', 80).notNullable()
       table.text('text').notNullable()
       table.datetime('post_when').notNullable()
-      table.datetime('posted_when')
-      table.boolean('instagram').defaultTo(true)
-      table.boolean('facebook').defaultTo(true)
-      table.boolean('twitter').defaultTo(true)
+      table
+        .boolean('instagram')
+        .defaultTo(true)
+        .notNullable()
+      table
+        .boolean('facebook')
+        .defaultTo(true)
+        .notNullable()
+      table
+        .boolean('twitter')
+        .defaultTo(true)
+        .notNullable()
+      table.datetime('posted_instagram')
+      table.datetime('posted_facebook')
+      table.datetime('posted_twitter')
     })
   }
 

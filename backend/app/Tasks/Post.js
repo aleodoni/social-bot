@@ -2,9 +2,9 @@
 
 const Task = use('Task')
 const Config = use('Config')
-const InstagramService = use('App/Services/InstagramService')
+const PostService = use('App/Services/SocialPost/PostService')
 
-const instagram = new InstagramService(Config)
+const service = new PostService(Config)
 
 class Post extends Task {
   static get schedule() {
@@ -12,9 +12,10 @@ class Post extends Task {
   }
 
   async handle() {
+    await service.formatPosts()
+    await service.postInstagram()
     // await instagram.launch()
     // await instagram.login()
-    console.log('Zen')
   }
 }
 
